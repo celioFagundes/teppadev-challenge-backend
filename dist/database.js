@@ -23,11 +23,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.db = void 0;
+exports.db = exports.admin = void 0;
 const admin = __importStar(require("firebase-admin"));
+exports.admin = admin;
 const serviceAccount = require('../service-account.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://teppadev-challenge.firebaseio.com',
 });
-exports.db = admin.firestore();
+const db = admin.firestore();
+exports.db = db;

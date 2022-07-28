@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import mediaRoutes from './routes/media_routes'
+import authRoutes from './routes/auth_routes'
 
 const app: Express = express()
 
@@ -17,7 +18,9 @@ app.use(
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use('/auth', authRoutes)
 app.use('/medias', mediaRoutes)
+
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello world')

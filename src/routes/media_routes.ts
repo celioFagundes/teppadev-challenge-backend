@@ -6,14 +6,15 @@ import {
   removeMedia,
   findMediaById,
 } from '../controllers/media_controller'
-import { MediaInputValidation } from '../middlewares/validation/media_input'
+import { checkIfAuthenticated } from '../middlewares/auth/auth_middleware'
+import { MediaInputValidation } from '../middlewares/validation/media_input_validation'
 
 const router = Router()
 
-router.get('/', findAllMedias)
+router.get('/', checkIfAuthenticated, findAllMedias)
 router.post('/', MediaInputValidation, createMedia)
 router.get('/:id', findMediaById)
-router.put('/:id', MediaInputValidation, updateMedia)
+router.put('/:id', [MediaInputValidation], updateMedia)
 router.delete('/:id', removeMedia)
 
 export default router

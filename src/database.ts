@@ -6,5 +6,5 @@ admin.initializeApp({
   databaseURL: 'https://teppadev-challenge.firebaseio.com',
 })
 
-export const db = admin.firestore()
-
+const db = admin.firestore()
+export { admin, db }
