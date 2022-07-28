@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import MediaSchema from '../models/media_model'
+import MediaSchema from '../../models/media_model'
 
-export const validationMiddleware = (request: Request, response: Response, next: NextFunction) => {
+export const MediaInputValidation = (request: Request, response: Response, next: NextFunction) => {
   const { error } = MediaSchema.validate(request.body)
 
   if (error) {

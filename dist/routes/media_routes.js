@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const media_controller_1 = require("../controllers/media_controller");
-const validation_middleware_1 = require("../middlewares/validation_middleware");
+const media_input_1 = require("../middlewares/validation/media_input");
 const router = (0, express_1.Router)();
 router.get('/', media_controller_1.findAllMedias);
-router.post('/', validation_middleware_1.validationMiddleware, media_controller_1.createMedia);
+router.post('/', media_input_1.MediaInputValidation, media_controller_1.createMedia);
 router.get('/:id', media_controller_1.findMediaById);
-router.put('/:id', validation_middleware_1.validationMiddleware, media_controller_1.updateMedia);
+router.put('/:id', media_input_1.MediaInputValidation, media_controller_1.updateMedia);
 router.delete('/:id', media_controller_1.removeMedia);
 exports.default = router;
