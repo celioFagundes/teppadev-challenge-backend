@@ -5,16 +5,15 @@ import {
   updateMedia,
   removeMedia,
   findMediaById,
-  findMediaByName,
 } from '../controllers/media_controller'
+import { validationMiddleware } from '../middlewares/validation_middleware'
 
 const router = Router()
 
 router.get('/', findAllMedias)
-router.post('/', createMedia)
+router.post('/', validationMiddleware, createMedia)
 router.get('/:id', findMediaById)
-router.put('/:id', updateMedia)
+router.put('/:id', validationMiddleware, updateMedia)
 router.delete('/:id', removeMedia)
-router.get('/name/:name', findMediaByName)
 
 export default router
