@@ -12,7 +12,7 @@ const app = (0, express_1.default)();
 dotenv_1.default.config();
 const port = process.env.PORT || 3000;
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:3001',
+    origin: 'http://localhost:5173',
 }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
