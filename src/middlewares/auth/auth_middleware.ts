@@ -2,13 +2,17 @@ import { NextFunction, Request, Response } from 'express'
 import { admin } from '../../database'
 
 export const checkIfAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.headers.authtoken) {
-    return res.status(403).send('Erro: Usuario não autorizado')
+  let authToken = req.headers.authtoken
+  if (!authToken) {
+    return res.status(401).send('Erro: Usuario não autorizado')
   }
-  const isValid = await admin.auth().verifyIdToken(req.headers.authtoken[0])
+  if(Array.isArray(authToken)){
+    authToken = authToken[0]
+  }
+  const isValid = await admin.auth().verifyIdToken(authToken)
   if (isValid) {
     return next()
   } else {
-    return res.status(403).send('Erro: Usuario não autorizado')
+    return res.status(401).send('Erro: Usuario não autorizado')
   }
 }

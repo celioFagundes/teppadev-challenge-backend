@@ -12,15 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkIfAuthenticated = void 0;
 const database_1 = require("../../database");
 const checkIfAuthenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.headers.authtoken) {
-        return res.status(403).send('Erro: Usuario não autorizado');
+    let authToken = req.headers.authtoken;
+    if (!authToken) {
+        return res.status(401).send('Erro: Usuario não autorizado');
     }
-    const isValid = yield database_1.admin.auth().verifyIdToken(req.headers.authtoken[0]);
+    if (Array.isArray(authToken)) {
+        authToken = authToken[0];
+    }
+    const isValid = yield database_1.admin.auth().verifyIdToken(authToken);
     if (isValid) {
         return next();
     }
     else {
-        return res.status(403).send('Erro: Usuario não autorizado');
+        return res.status(401).send('Erro: Usuario não autorizado');
     }
 });
 exports.checkIfAuthenticated = checkIfAuthenticated;
