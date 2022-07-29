@@ -4,6 +4,6 @@ import { UserInputValidation } from '../middlewares/validation/user_input_valida
 
 const router = Router()
 
-router.post('/signin', UserInputValidation, createUser)
+router.post('/register', UserInputValidation, createUser)
 
 export default router
