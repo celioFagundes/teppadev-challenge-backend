@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const joi_1 = __importDefault(require("joi"));
 const MediaSchema = joi_1.default.object({
     name: joi_1.default.string().min(3).max(30).required(),
-    gender: joi_1.default.string(),
+    media_type: joi_1.default.string().required().valid('Movies', 'Games', 'Series'),
+    genre: joi_1.default.string(),
     additional: joi_1.default.array().items(joi_1.default.object({
         name: joi_1.default.string(),
         value: joi_1.default.string(),
