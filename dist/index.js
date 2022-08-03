@@ -11,13 +11,9 @@ const auth_routes_1 = __importDefault(require("./routes/auth_routes"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 const port = process.env.PORT || 3000;
-app.all('/*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-});
 app.use((0, cors_1.default)({
     origin: ['https://teppadev-challenge.web.app/', 'http://localhost:5173'],
+    credentials: true
 }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
