@@ -12,9 +12,9 @@ import { MediaInputValidation } from '../middlewares/validation/media_input_vali
 const router = Router()
 
 router.get('/', checkIfAuthenticated, findAllMedias)
-router.post('/', MediaInputValidation, createMedia)
-router.get('/:id', findMediaById)
-router.put('/:id', [MediaInputValidation], updateMedia)
-router.delete('/:id', removeMedia)
+router.post('/', [checkIfAuthenticated, MediaInputValidation], createMedia)
+router.get('/:id', checkIfAuthenticated, findMediaById)
+router.put('/:id', [checkIfAuthenticated, MediaInputValidation], updateMedia)
+router.delete('/:id', checkIfAuthenticated, removeMedia)
 
 export default router
