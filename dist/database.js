@@ -30,12 +30,13 @@ exports.db = exports.admin = void 0;
 const admin = __importStar(require("firebase-admin"));
 exports.admin = admin;
 const dotenv_1 = __importDefault(require("dotenv"));
+const base64_1 = require("./base64");
 dotenv_1.default.config();
 admin.initializeApp({
     credential: admin.credential.cert({
         projectId: process.env.PROJECT_ID,
         clientEmail: process.env.CLIENT_EMAIL,
-        privateKey: process.env.PRIVATE_KEY,
+        privateKey: (0, base64_1.fromBase64)(process.env.PRIVATE_KEY),
     }),
     databaseURL: 'https://teppadev-challenge.firebaseio.com',
 });
