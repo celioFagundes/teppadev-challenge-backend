@@ -14,7 +14,7 @@ const database_1 = require("../../database");
 const checkIfAuthenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let authToken = req.headers.authtoken;
     if (!authToken) {
-        return res.status(401).send('Erro: Usuario não autorizado');
+        return res.status(401).send('Error: Unauthorized');
     }
     if (Array.isArray(authToken)) {
         authToken = authToken[0];
@@ -24,7 +24,7 @@ const checkIfAuthenticated = (req, res, next) => __awaiter(void 0, void 0, void 
         return next();
     }
     else {
-        return res.status(401).send('Erro: Usuario não autorizado');
+        return res.status(401).send('Error: Unauthorized');
     }
 });
 exports.checkIfAuthenticated = checkIfAuthenticated;

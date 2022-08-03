@@ -19,7 +19,7 @@ const findAllMedias = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return media;
     });
     try {
-        res.send(medias);
+        res.status(200).send(medias);
     }
     catch (e) {
         res.send(e);
@@ -32,10 +32,10 @@ const findMediaById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const docRef = colletionRef.doc(id);
     const data = yield docRef.get();
     if (!data.exists) {
-        return res.status(404).send('Documentao não encontrado');
+        return res.status(404).send('Document not found');
     }
     const media = Object.assign({ id: data.id }, data.data());
-    res.send(media);
+    res.status(200).send(media);
 });
 exports.findMediaById = findMediaById;
 const createMedia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,7 +43,7 @@ const createMedia = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const colletionRef = database_1.db.collection('medias');
     try {
         const newDoc = yield colletionRef.add(data);
-        res.send(newDoc.id);
+        res.status(200).send(newDoc.id);
     }
     catch (e) {
         res.send(e);
@@ -57,10 +57,10 @@ const updateMedia = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const docRef = colletionRef.doc(id);
     try {
         yield docRef.update(data);
-        res.send('Documento atualizado');
+        res.status(200).send('Document updated');
     }
     catch (e) {
-        res.status(404).send('Documento não encontrado');
+        res.status(404).send('Document not found');
     }
 });
 exports.updateMedia = updateMedia;
@@ -70,9 +70,9 @@ const removeMedia = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const docRef = colletionRef.doc(id);
     const data = yield docRef.get();
     if (!data.exists) {
-        return res.status(404).send('Documento não encontrado');
+        return res.status(404).send('Document not found');
     }
     yield docRef.delete();
-    res.send('Documento excluído');
+    res.status(200).send('Document deleted');
 });
 exports.removeMedia = removeMedia;

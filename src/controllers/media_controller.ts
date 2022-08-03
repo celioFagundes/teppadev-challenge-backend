@@ -9,7 +9,7 @@ export const findAllMedias = async (req: Request, res: Response) => {
     return media
   })
   try {
-    res.send(medias)
+    res.status(200).send(medias)
   } catch (e) {
     res.send(e)
   }
@@ -21,10 +21,10 @@ export const findMediaById = async (req: Request, res: Response) => {
   const data = await docRef.get()
 
   if (!data.exists) {
-    return res.status(404).send('Documentao não encontrado')
+    return res.status(404).send('Document not found')
   }
   const media = { id: data.id, ...data.data() }
-  res.send(media)
+  res.status(200).send(media)
 }
 
 export const createMedia = async (req: Request, res: Response) => {
@@ -32,7 +32,7 @@ export const createMedia = async (req: Request, res: Response) => {
   const colletionRef = db.collection('medias')
   try {
     const newDoc = await colletionRef.add(data)
-    res.send(newDoc.id)
+    res.status(200).send(newDoc.id)
   } catch (e) {
     res.send(e)
   }
@@ -44,9 +44,9 @@ export const updateMedia = async (req: Request, res: Response) => {
   const docRef = colletionRef.doc(id)
   try {
     await docRef.update(data)
-    res.send('Documento atualizado')
+    res.status(200).send('Document updated')
   } catch (e) {
-    res.status(404).send('Documento não encontrado')
+    res.status(404).send('Document not found')
   }
 }
 export const removeMedia = async (req: Request, res: Response) => {
@@ -56,8 +56,8 @@ export const removeMedia = async (req: Request, res: Response) => {
   const data = await docRef.get()
 
   if (!data.exists) {
-    return res.status(404).send('Documento não encontrado')
+    return res.status(404).send('Document not found')
   }
   await docRef.delete()
-  res.send('Documento excluído')
+  res.status(200).send('Document deleted')
 }
