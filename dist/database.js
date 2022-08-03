@@ -22,13 +22,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = exports.admin = void 0;
 const admin = __importStar(require("firebase-admin"));
 exports.admin = admin;
-const serviceAccount = require('../service-account.json');
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert({
+        projectId: process.env.PROJECT_ID,
+        clientEmail: process.env.CLIENT_EMAIL,
+        privateKey: process.env.PRIVATE_KEY,
+    }),
     databaseURL: 'https://teppadev-challenge.firebaseio.com',
 });
 const db = admin.firestore();
